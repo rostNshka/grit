@@ -1,0 +1,22 @@
+import type { StorybookConfig } from "@storybook/react-vite";
+import path from "node:path";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(ts|tsx)"],
+  addons: ["@storybook/addon-essentials"],
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+  viteFinal: async (viteConfig) => {
+    if (viteConfig.resolve) {
+      viteConfig.resolve.alias = {
+        ...viteConfig.resolve.alias,
+        "@": path.resolve(__dirname, "../src"),
+      };
+    }
+    return viteConfig;
+  },
+};
+
+export default config;
